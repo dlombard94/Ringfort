@@ -22,12 +22,20 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
-
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         info("Ringfort Activity started..")
 
         app = application as MainApp
+
+        //this retrieves clciked on ringfort via .hasExtra
+        //gotten from onRingfortClick
+        //if created through add toolbar this will be skipped
+        if (intent.hasExtra("ringfort_edit")) {
+            ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
+            ringfortTitle.setText(ringfort.title)
+            description.setText(ringfort.description)
+        }
 
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()

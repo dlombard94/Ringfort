@@ -44,8 +44,10 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
         return super.onOptionsItemSelected(item)
     }
 
+    //.putExra is passing the pressed ringfort to the ringfort activity
+    //this is then retrieved in the onCreate()
     override fun onRingfortClick(ringfort: RingfortModel) {
-        startActivityForResult(intentFor<RingfortActivity>(), 0)
+        startActivityForResult(intentFor<RingfortActivity>().putExtra("ringfort_edit",ringfort), 0)
     }
 }
 
