@@ -2,6 +2,7 @@ package org.wit.ringfort.activities
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -18,14 +19,23 @@ class RingfortListActivity : AppCompatActivity() {
 
     lateinit var app: MainApp
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_list)
         app = application as MainApp
 
+        toolbar.title = title
+        setSupportActionBar(toolbar)
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = RingfortAdapter(app.ringforts)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
 
