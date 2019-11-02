@@ -32,13 +32,9 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
             ringfort.description = description.text.toString()
-
             if (ringfort.title.isNotEmpty()) {
-                app.ringforts.add(ringfort.copy())
+                app.ringforts.create(ringfort.copy())
                 info("add Button Pressed: $ringfortTitle")
-                for (i in app.ringforts.indices) {
-                    info("Placemark[$i]:${app.ringforts[i]}")
-                }
                 setResult(AppCompatActivity.RESULT_OK)
                 finish()
             }

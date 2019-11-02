@@ -25,7 +25,7 @@ class RingfortListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = RingfortAdapter(app.ringforts)
+        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll())
     }
 
     //crerates toolbar menu
