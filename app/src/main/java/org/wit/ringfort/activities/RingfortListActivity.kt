@@ -1,5 +1,6 @@
 package org.wit.ringfort.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,12 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
     //this is then retrieved in the onCreate()
     override fun onRingfortClick(ringfort: RingfortModel) {
         startActivityForResult(intentFor<RingfortActivity>().putExtra("ringfort_edit",ringfort), 0)
+    }
+
+    //updated list with correct values from model once and activity ends
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
 

@@ -3,6 +3,12 @@ package org.wit.ringfort.models
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
+var lastId = 0L
+
+internal fun getId(): Long {
+    return lastId++
+}
+
 class RingfortMemStore : RingfortStore, AnkoLogger {
 
     val ringforts = ArrayList<RingfortModel>()
@@ -11,9 +17,19 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
         return ringforts
     }
 
-    override fun create(placemark: RingfortModel) {
-        ringforts.add(placemark)
+    override fun create(ringfort: RingfortModel) {
+        ringfort.id = getId()
+        ringforts.add(ringfort)
         logAll()
+    }
+
+    override fun update(ringfort: RingfortModel) {
+        var foundRingfort: RingfortModel? = ringforts.find { p -> p.id == ringfort.id }
+        if (foundRingfort != null) {
+            foundRingfort.title = ringfort.title
+            foundRingfort.description = ringfort.description
+            logAll()
+        }
     }
 
     fun logAll() {

@@ -19,6 +19,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     var ringfort = RingfortModel()
     lateinit var app: MainApp
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
@@ -27,28 +28,35 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         info("Ringfort Activity started..")
 
         app = application as MainApp
+        var edit = false
 
         //this retrieves clciked on ringfort via .hasExtra
         //gotten from onRingfortClick
         //if created through add toolbar this will be skipped
         if (intent.hasExtra("ringfort_edit")) {
+            edit = true
             ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
+            btnAdd.setText(R.string.save_ringfort)
+
         }
 
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
             ringfort.description = description.text.toString()
-            if (ringfort.title.isNotEmpty()) {
-                app.ringforts.create(ringfort.copy())
-                info("add Button Pressed: $ringfortTitle")
-                setResult(AppCompatActivity.RESULT_OK)
-                finish()
+            if (ringfort.title.isEmpty()) {
+                toast(R.string.enter_ringfort_title)
+            } else {
+                if (edit) {
+                    app.ringforts.update(ringfort.copy())
+                } else {
+                    app.ringforts.create(ringfort.copy())
+                }
             }
-            else {
-                toast ("Please Enter a title")
-            }
+            info("add Button Pressed: $ringfortTitle")
+            setResult(AppCompatActivity.RESULT_OK)
+            finish()
         }
 
 
