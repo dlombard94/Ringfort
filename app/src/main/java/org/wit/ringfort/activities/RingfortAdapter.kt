@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.card_placemark.view.*
 import org.wit.ringfort.R
+import org.wit.ringfort.helpers.readImageFromPath
 import org.wit.ringfort.models.RingfortModel
 
 interface RingfortListener {
@@ -39,6 +40,7 @@ class RingfortAdapter constructor(
         fun bind(ringfort: RingfortModel, listener: RingfortListener) {
             itemView.ringfortTitle.text = ringfort.title
             itemView.description.text = ringfort.description
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, ringfort.image))
             itemView.setOnClickListener { listener.onRingfortClick(ringfort) }
         }
     }

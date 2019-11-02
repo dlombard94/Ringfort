@@ -45,6 +45,9 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             description.setText(ringfort.description)
             btnAdd.setText(R.string.save_ringfort)
             ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
+            if (ringfort.image != null) {
+                chooseImage.setText(R.string.change_ringfort_image)
+            }
 
         }
 
@@ -95,6 +98,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 if (data != null) {
                     ringfort.image = data.getData().toString()
                     ringfortImage.setImageBitmap(readImage(this, resultCode, data))
+                    chooseImage.setText(R.string.change_ringfort_image)
                 }
             }
         }

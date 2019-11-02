@@ -24,5 +24,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ringfortTitle" />
 
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/change_ringfort_image" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
