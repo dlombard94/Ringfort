@@ -8,8 +8,14 @@ import kotlinx.android.synthetic.main.card_placemark.view.*
 import org.wit.ringfort.R
 import org.wit.ringfort.models.RingfortModel
 
-class RingfortAdapter constructor(private var ringforts: List<RingfortModel>) :
-    RecyclerView.Adapter<RingfortAdapter.MainHolder>() {
+interface RingfortListener {
+    fun onRingfortClick(ringfort: RingfortModel)
+}
+
+class RingfortAdapter constructor(
+    private var ringforts: List<RingfortModel>,
+    private val listener: RingfortListener
+    ): RecyclerView.Adapter<RingfortAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         return MainHolder(
@@ -23,16 +29,17 @@ class RingfortAdapter constructor(private var ringforts: List<RingfortModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val ringfort = ringforts[holder.adapterPosition]
-        holder.bind(ringfort)
+        holder.bind(ringfort, listener)
     }
 
     override fun getItemCount(): Int = ringforts.size
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(ringfort: RingfortModel) {
+        fun bind(ringfort: RingfortModel, listener: RingfortListener) {
             itemView.ringfortTitle.text = ringfort.title
             itemView.description.text = ringfort.description
+            itemView.setOnClickListener { listener.onRingfortClick(ringfort) }
         }
     }
 }

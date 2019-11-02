@@ -5,12 +5,14 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_ringfort_list.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 import org.wit.ringfort.R
 import org.wit.ringfort.main.MainApp
+import org.wit.ringfort.models.RingfortModel
 
 
-class RingfortListActivity : AppCompatActivity() {
+class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
     lateinit var app: MainApp
 
@@ -25,7 +27,7 @@ class RingfortListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll())
+        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll(), this)
     }
 
     //crerates toolbar menu
@@ -40,6 +42,10 @@ class RingfortListActivity : AppCompatActivity() {
             R.id.item_add -> startActivityForResult<RingfortActivity>(0)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onRingfortClick(ringfort: RingfortModel) {
+        startActivityForResult(intentFor<RingfortActivity>(), 0)
     }
 }
 
