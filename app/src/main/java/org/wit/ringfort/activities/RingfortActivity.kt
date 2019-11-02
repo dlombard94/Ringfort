@@ -2,6 +2,8 @@ package org.wit.ringfort.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_ringfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -20,7 +22,12 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
+
+        toolbarAdd.title = title
+        setSupportActionBar(toolbarAdd)
         info("Ringfort Activity started..")
+
+        app = application as MainApp
 
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
@@ -32,10 +39,28 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 for (i in app.ringforts.indices) {
                     info("Placemark[$i]:${app.ringforts[i]}")
                 }
+                setResult(AppCompatActivity.RESULT_OK)
+                finish()
             }
             else {
                 toast ("Please Enter a title")
             }
         }
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_ringfort, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
