@@ -1,5 +1,6 @@
 package org.wit.ringfort.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +10,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 import org.wit.ringfort.R
+import org.wit.ringfort.helpers.readImage
+import org.wit.ringfort.helpers.readImageFromPath
+import org.wit.ringfort.helpers.showImagePicker
 import org.wit.ringfort.main.MainApp
 import org.wit.ringfort.models.RingfortModel
 import java.util.ArrayList
@@ -17,6 +21,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
 
     var ringfort = RingfortModel()
+    val IMAGE_REQUEST = 1
     lateinit var app: MainApp
 
 
@@ -39,6 +44,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
             btnAdd.setText(R.string.save_ringfort)
+            ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
 
         }
 
@@ -59,6 +65,10 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             finish()
         }
 
+        chooseImage.setOnClickListener {
+            showImagePicker(this, IMAGE_REQUEST)
+        }
+
 
     }
 
@@ -75,4 +85,19 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+    //used for dispalying image after picker activity ends
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IMAGE_REQUEST -> {
+                if (data != null) {
+                    ringfort.image = data.getData().toString()
+                    ringfortImage.setImageBitmap(readImage(this, resultCode, data))
+                }
+            }
+        }
+    }
+
 }
