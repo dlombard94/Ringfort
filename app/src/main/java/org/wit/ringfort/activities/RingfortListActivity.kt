@@ -28,7 +28,7 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll(), this)
+        loadRingforts()
     }
 
     //crerates toolbar menu
@@ -53,8 +53,17 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
     //updated list with correct values from model once and activity ends
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        loadRingforts()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun loadRingforts() {
+        showRingforts(app.ringforts.findAll())
+    }
+
+    fun showRingforts (ringforts: List<RingfortModel>) {
+        recyclerView.adapter = RingfortAdapter(ringforts, this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }
 
