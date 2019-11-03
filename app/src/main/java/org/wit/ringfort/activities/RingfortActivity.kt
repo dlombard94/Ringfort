@@ -16,6 +16,10 @@ import org.wit.ringfort.helpers.showImagePicker
 import org.wit.ringfort.main.MainApp
 import org.wit.ringfort.models.RingfortModel
 import java.util.ArrayList
+import java.nio.file.Files.size
+//import android.R
+
+
 
 class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
@@ -27,7 +31,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ringfort)
+        setContentView(org.wit.ringfort.R.layout.activity_ringfort)
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         info("Ringfort Activity started..")
@@ -43,10 +47,10 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
-            btnAdd.setText(R.string.save_ringfort)
+            btnAdd.setText(org.wit.ringfort.R.string.save_ringfort)
             ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
             if (ringfort.image != null) {
-                chooseImage.setText(R.string.change_ringfort_image)
+                chooseImage.setText(org.wit.ringfort.R.string.change_ringfort_image)
             }
 
         }
@@ -55,7 +59,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfort.title = ringfortTitle.text.toString()
             ringfort.description = description.text.toString()
             if (ringfort.title.isEmpty()) {
-                toast(R.string.enter_ringfort_title)
+                toast(org.wit.ringfort.R.string.enter_ringfort_title)
             } else {
                 if (edit) {
                     app.ringforts.update(ringfort.copy())
@@ -76,13 +80,23 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_ringfort, menu)
+        menuInflater.inflate(org.wit.ringfort.R.menu.menu_ringfort, menu)
         return super.onCreateOptionsMenu(menu)
+
+//        if (mState === HIDE_MENU) {
+//            for (i in 0 until menu.size())
+//                menu.getItem(i).isVisible = false
+//        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.item_cancel -> {
+            org.wit.ringfort.R.id.item_delete -> {
+                app.ringforts.delete(ringfort)
+                setResult(AppCompatActivity.RESULT_OK)
+                finish()
+            }
+            org.wit.ringfort.R.id.item_cancel -> {
                 finish()
             }
         }
@@ -98,7 +112,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 if (data != null) {
                     ringfort.image = data.getData().toString()
                     ringfortImage.setImageBitmap(readImage(this, resultCode, data))
-                    chooseImage.setText(R.string.change_ringfort_image)
+                    chooseImage.setText(org.wit.ringfort.R.string.change_ringfort_image)
                 }
             }
         }
