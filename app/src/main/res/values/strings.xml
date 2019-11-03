@@ -1,12 +1,22 @@
 <resources>
     <string name="app_name">Ringfort</string>
     <string name="button_addRingfort">Add Ringfort</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+
     <string name="hint_ringfortTitle">Ringfort Title</string>
     <string name="hint_ringfortDescription">Description </string>
+    <string name="hint_appPassword">Password</string>
+    <string name="hint_appUsername">John Doe</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
+
     <string name="menu_addRingfort">Add</string>
     <string name="menu_cancelRingfort">Cancel</string>
     <string name="menu_deleteRingfort">Delete</string>
     <string name="enter_ringfort_title"> Please enter a Ringfort Title </string>
+    <string name="enter_missing_info"> Please enter username or password </string>
+
     <string name="save_ringfort"> Save Ringfort </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_ringfort_image">Select ringfort image</string>
