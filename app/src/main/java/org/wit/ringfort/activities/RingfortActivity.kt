@@ -8,12 +8,14 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_ringfort.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 import org.wit.ringfort.R
 import org.wit.ringfort.helpers.readImage
 import org.wit.ringfort.helpers.readImageFromPath
 import org.wit.ringfort.helpers.showImagePicker
 import org.wit.ringfort.main.MainApp
+import org.wit.ringfort.models.Location
 import org.wit.ringfort.models.RingfortModel
 import java.util.ArrayList
 import java.nio.file.Files.size
@@ -26,6 +28,8 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
     var ringfort = RingfortModel()
     val IMAGE_REQUEST = 1
+    val LOCATION_REQUEST = 2
+    var location = Location(52.245696, -7.139102, 15f)
     lateinit var app: MainApp
 
 
@@ -77,7 +81,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         }
 
         ringfortLocation.setOnClickListener {
-            info ("Set Location Pressed")
+            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
 
@@ -119,7 +123,13 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                     chooseImage.setText(org.wit.ringfort.R.string.change_ringfort_image)
                 }
             }
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    location = data.extras?.getParcelable<Location>("location")!!
+                }
+            }
+        }
         }
     }
 
-}
+
