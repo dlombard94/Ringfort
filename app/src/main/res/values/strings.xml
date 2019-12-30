@@ -29,5 +29,6 @@
 
     <string name="app_label">Ringfort</string>
     <string name="search_hint">Search Ringfort..</string>
+    <string name="title_activity_ringfort_maps">Map of All Placemarks</string>
 
 </resources>

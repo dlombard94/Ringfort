@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_ringfort_list.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import org.wit.ringfort.R
 import org.wit.ringfort.main.MainApp
@@ -43,6 +44,7 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
             R.id.item_add -> startActivityForResult<RingfortActivity>(0)
             R.id.item_settings -> {startActivityForResult<SettingsActivity>(0)}
             R.id.item_logout -> {startActivityForResult<LoginActivity>(0)}
+            R.id.item_map -> startActivity<RingfortMapsActivity>()
         }
         return super.onOptionsItemSelected(item)
     }
