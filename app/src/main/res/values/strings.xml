@@ -12,6 +12,9 @@
     <string name="menu_logout">Logout</string>
 
     <string name="menu_addRingfort">Add</string>
+    <string name="menu_searchRingfort">Search</string>
+    <string name="menu_map">Map</string>
+
     <string name="menu_cancelRingfort">Cancel</string>
     <string name="menu_deleteRingfort">Delete</string>
     <string name="enter_ringfort_title"> Please enter a Ringfort Title </string>
@@ -23,5 +26,8 @@
     <string name="change_ringfort_image">Change ringfort image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">Map</string>
+
+    <string name="app_label">Ringfort</string>
+    <string name="search_hint">Search Ringfort..</string>
 
 </resources>
