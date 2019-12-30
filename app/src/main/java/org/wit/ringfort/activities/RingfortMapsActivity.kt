@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 import kotlinx.android.synthetic.main.activity_ringfort_maps.*
 import kotlinx.android.synthetic.main.content_ringfort_maps.*
 
 import org.wit.ringfort.R
+import org.wit.ringfort.helpers.readImageFromPath
 import org.wit.ringfort.main.MainApp
 
-class RingfortMapsActivity : AppCompatActivity() {
+class RingfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     lateinit var map: GoogleMap
     lateinit var app: MainApp
@@ -37,9 +39,19 @@ class RingfortMapsActivity : AppCompatActivity() {
         app.ringforts.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
+            map.setOnMarkerClickListener(this)
             map.addMarker(options).tag = it.id
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        val tag = marker.tag as Long
+        val ringfort = app.ringforts.findById(tag)
+        currentTitle.text = ringfort!!.title
+        currentDescription.text = ringfort!!.description
+        currentImage.setImageBitmap(readImageFromPath(this, ringfort.image))
+        return true
     }
 
     override fun onDestroy() {

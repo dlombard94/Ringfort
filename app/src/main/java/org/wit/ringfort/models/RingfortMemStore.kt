@@ -38,6 +38,11 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
         }
     }
 
+    override fun findById(id:Long) : RingfortModel? {
+        val foundPlacemark: RingfortModel? = ringforts.find { it.id == id }
+        return foundPlacemark
+    }
+
     fun logAll() {
         ringforts.forEach{ info("${it}") }
     }
