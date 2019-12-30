@@ -6,6 +6,7 @@
 
     <string name="hint_ringfortTitle">Ringfort Title</string>
     <string name="hint_ringfortDescription">Description </string>
+    <string name="hint_ringfortImage">Ringfort Image </string>
     <string name="hint_appPassword">Password</string>
     <string name="hint_appUsername">John Doe</string>
     <string name="menu_settings">Settings</string>
